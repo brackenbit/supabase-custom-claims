@@ -43,6 +43,14 @@ The suggestion is that this will allow for better tree-shaking, and result in a 
 
 Not wanting to give up on the convenience of automatic imports without a good reason, I tested this, and found that using direct paths actually _increased_ bundle size (though by < 1 kB). It seems that at least while using Vite (with ESM/Rollup), there is no benefit to manually adjusting react-bootstrap imports.
 
+## Building the Demo
+
+The demo relies on Supabase parameters being set in .env (omitted by gitignore).
+You should populate .env with:
+
+-   VITE_SUPABASE_URL="your_value"
+-   VITE_SUPABASE_PUBLIC_KEY="your_value"
+
 ## Attribution
 
 -   The useLocalStorageState hook was adapted from code from "The Ultimate React Course 2024" by Jonas Schmedtmann (https://github.com/jonasschmedtmann/ultimate-react-course). The overall structure and boilerplate used in hooks was also inspired by this excellent course.
