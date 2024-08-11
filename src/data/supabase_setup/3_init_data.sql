@@ -75,16 +75,25 @@ VALUES
         'Use the redundant TLS feed, then you can hack the bluetooth hard drive!'
     );
 
-
 END $$;
 
 
 
 -- Create function/trigger to set tenant_id to match user making the insert request
 -- (Insert requests sent from client omit tenant_id, it must be added by this trusted trigger.)
-CREATE OR REPLACE FUNCTION set_tenant_id () RETURNS TRIGGER SECURITY DEFINER AS $$
+CREATE OR REPLACE FUNCTION set_tenant_id()
+    RETURNS TRIGGER
+    SET search_path = ''
+    SECURITY DEFINER
+AS $$
 BEGIN
-    NEW.tenant_id := (SELECT tenant_id FROM public.user_tenants WHERE user_id = auth.uid());
+    -- Only apply trigger when INSERT comes from actual users
+    -- i.e. don't apply trigger when running SQL directly
+    CASE WHEN current_user = 'auth' THEN
+        NEW.tenant_id := (SELECT tenant_id FROM public.user_tenants WHERE user_id = auth.uid());
+    ELSE
+        -- Do nothing
+    END CASE;
 
     RETURN NEW;
 END;

@@ -75,6 +75,7 @@ CREATE TABLE public.user_tenants (
 CREATE OR REPLACE FUNCTION public.custom_access_token_hook(event jsonb)
 RETURNS jsonb
 LANGUAGE plpgsql
+SET search_path = ""
 stable
 AS $$
   DECLARE

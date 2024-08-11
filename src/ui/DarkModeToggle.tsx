@@ -9,7 +9,11 @@ export default function DarkModeToggle() {
     const { isDarkMode, toggleDarkMode } = useDarkMode();
 
     return (
-        <Button onClick={toggleDarkMode} variant="outline-secondary">
+        <Button
+            onClick={toggleDarkMode}
+            variant="outline-secondary"
+            aria-label={isDarkMode ? "Turn off dark mode" : "Turn on dark mode"}
+        >
             {isDarkMode ? (
                 <i className="bi bi-sun" />
             ) : (

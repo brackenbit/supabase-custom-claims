@@ -21,7 +21,7 @@ const DarkModeContext = createContext<DarkModeContextType | undefined>(
 function DarkModeProvider({ children }: PropsWithChildren) {
     const [isDarkMode, setIsDarkMode] = useLocalStorageState(
         // Use OS preferences for default
-        window.matchMedia("(prefers-color-scheme: dark").matches,
+        window.matchMedia("(prefers-color-scheme: dark)").matches,
         "isDarkMode"
     );
 

@@ -12,7 +12,9 @@ CREATE OR REPLACE FUNCTION auth.create_user(
         email text,
         pw text,
         fullName text
-    ) RETURNS uuid AS $$
+    ) RETURNS uuid
+    SET search_path = ""
+    AS $$
 DECLARE
     user_id uuid;
     encrypted_pw text;

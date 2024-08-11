@@ -62,6 +62,9 @@ export default function LoginForm() {
                                 placeholder=""
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                // Shouldn't be required, but role defaults to the invalid "password text"
+                                // Could be a react-bootstrap bug?
+                                role="textbox"
                             />
                         </FloatingLabel>
                         <Button
