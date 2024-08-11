@@ -3,6 +3,7 @@
 */
 
 import { Button, Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
     return (
@@ -15,9 +16,9 @@ export default function Landing() {
                         claims to Supabase authentication, to support e.g.
                         multi-tenancy and user roles.
                     </p>
-                    <Button onClick={() => window.location.replace("/login")}>
-                        Log in
-                    </Button>
+                    <Link to="/login">
+                        <Button>Log in</Button>
+                    </Link>
                 </Container>
             </main>
         </div>

@@ -23,6 +23,7 @@ Demo users are assigned roles with the following permissions:
 ### UI still offers forbidden actions
 
 This app has an intentionally poor UX!
+
 To show how user roles restrict the actions different users can take, even forbidden actions are shown in the UI.
 
 ## A Tangent on Bundle Size
@@ -42,6 +43,11 @@ import { Container } from "react-bootstrap";
 The suggestion is that this will allow for better tree-shaking, and result in a smaller bundle.
 
 Not wanting to give up on the convenience of automatic imports without a good reason, I tested this, and found that using direct paths actually _increased_ bundle size (though by < 1 kB). It seems that at least while using Vite (with ESM/Rollup), there is no benefit to manually adjusting react-bootstrap imports.
+
+## Testing
+
+Automated testing is set up with Vitest and React Testing Library.
+(At this stage, coverage is very limited, with only MainNavbar included.)
 
 ## Building the Demo
 

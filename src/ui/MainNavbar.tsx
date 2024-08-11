@@ -36,7 +36,11 @@ export default function MainNavbar() {
                         <NavDropdown
                             className="ms-2"
                             title={
-                                isPending ? <Spinner size="sm" /> : displayName
+                                isPending ? (
+                                    <Spinner size="sm" data-testid="spinner" />
+                                ) : (
+                                    displayName
+                                )
                             }
                             id="navbar-user-dropdown"
                         >
