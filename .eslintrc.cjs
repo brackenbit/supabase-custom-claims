@@ -10,7 +10,13 @@ module.exports = {
     ],
     ignorePatterns: ["dist", ".eslintrc.cjs"],
     parser: "@typescript-eslint/parser",
-    plugins: ["@typescript-eslint", "react", "react-hooks", "react-refresh"],
+    plugins: [
+        "@typescript-eslint",
+        "react",
+        "react-hooks",
+        "react-refresh",
+        "no-restricted-imports",
+    ],
     rules: {
         "react-refresh/only-export-components": [
             "warn",
@@ -27,6 +33,18 @@ module.exports = {
                 caughtErrorsIgnorePattern: "^_",
                 vars: "all",
                 varsIgnorePattern: "^_",
+            },
+        ],
+        "no-restricted-imports": [
+            "error",
+            {
+                patterns: [
+                    {
+                        group: ["../data/**"],
+                        message:
+                            "Imports from the /src/data directory are not allowed in production code.",
+                    },
+                ],
             },
         ],
     },

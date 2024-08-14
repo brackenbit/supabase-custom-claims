@@ -25,7 +25,7 @@ describe("MainNavbar component", () => {
     beforeEach(() => {
         // set up default mockReturnValues:
         vi.mocked(useUser).mockReturnValue({
-            isPending: false,
+            isFetching: false,
             error: { name: "", message: "" },
             fullName: "Test user",
             userRole: "manager",
@@ -81,7 +81,7 @@ describe("MainNavbar component", () => {
     test("renders spinner while waiting for user info", () => {
         // ARRANGE
         vi.mocked(useUser).mockReturnValue({
-            isPending: true,
+            isFetching: true,
             error: { name: "", message: "" },
             fullName: undefined,
             userRole: undefined,

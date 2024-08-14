@@ -26,3 +26,7 @@ dist-ssr
 # Secrets
 .env*
 *secrets*
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

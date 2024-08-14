@@ -1,0 +1,3 @@
+
+NB: The "tests" folder only contains Playwright tests.
+Vitest / React Testing Library tests are alongside the component they relate to.

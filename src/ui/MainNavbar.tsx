@@ -10,7 +10,7 @@ import LogoutButton from "../features/authentication/LogoutButton";
 import { Link } from "react-router-dom";
 
 export default function MainNavbar() {
-    const { isPending, fullName, userRole } = useUser();
+    const { isFetching, fullName, userRole } = useUser();
     const displayName = userRole ? `${fullName} (${userRole})` : fullName;
 
     return (
@@ -36,7 +36,7 @@ export default function MainNavbar() {
                         <NavDropdown
                             className="ms-2"
                             title={
-                                isPending ? (
+                                isFetching ? (
                                     <Spinner size="sm" data-testid="spinner" />
                                 ) : (
                                     displayName
