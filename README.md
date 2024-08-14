@@ -46,8 +46,11 @@ Not wanting to give up on the convenience of automatic imports without a good re
 
 ## Testing
 
-Automated testing is set up with Vitest and React Testing Library.
-(At this stage, coverage is very limited, with only MainNavbar included.)
+Automated testing is set up with Vitest, React Testing Library, and Playwright.
+
+Unit testing has very limited coverage (only MainNavbar is included).
+
+E2E testing is also a work in progress, but a bit more substantial. It confirms that login is working, and tenant data is segregated.
 
 ## Building the Demo
 
@@ -56,6 +59,11 @@ You should populate .env with:
 
 -   VITE_SUPABASE_URL="your_value"
 -   VITE_SUPABASE_PUBLIC_KEY="your_value"
+
+Testing similarly relies on a .env.test, which should be populated with:
+
+-   VITE_SUPABASE_ACCESS_TOKEN
+-   VITE_SUPABASE_PROJECT_REF
 
 ## Attribution
 
