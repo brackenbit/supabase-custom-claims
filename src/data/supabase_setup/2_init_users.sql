@@ -5,7 +5,6 @@
 -- based on code by jziggas (https://github.com/orgs/supabase/discussions/5043#discussioncomment-6191165)
 -- updated for newer supabase, correct timestamps, and to populate user_metadata
 
-
 DROP FUNCTION auth.create_user(text, text, text);
 
 CREATE OR REPLACE FUNCTION auth.create_user(
@@ -13,7 +12,8 @@ CREATE OR REPLACE FUNCTION auth.create_user(
         pw text,
         fullName text
     ) RETURNS uuid
-    SET search_path = ""
+    SECURITY definer
+    SET search_path = ''
     AS $$
 DECLARE
     user_id uuid;
@@ -21,7 +21,7 @@ DECLARE
     user_metadata jsonb;
 BEGIN
     user_id := gen_random_uuid();
-    encrypted_pw := crypt(pw, gen_salt('bf'));
+    encrypted_pw := extensions.crypt(pw, extensions.gen_salt('bf'));
     user_metadata := jsonb_build_object('fullName', fullName);
 
     INSERT INTO auth.users (

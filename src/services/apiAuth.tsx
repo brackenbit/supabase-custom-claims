@@ -33,7 +33,7 @@ export async function logout() {
     }
 }
 
-interface CustomJwtPayload extends JwtPayload {
+export interface CustomJwtPayload extends JwtPayload {
     user_role: string;
     user_tenant: number;
     user_tenant_name: string;

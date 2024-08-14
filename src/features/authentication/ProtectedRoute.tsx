@@ -9,15 +9,15 @@ import FullPageSpinner from "../../ui/FullPageSpinner";
 
 export default function ProtectedRoute(props: PropsWithChildren) {
     const navigate = useNavigate();
-    const { isPending, error, isAuthenticated } = useUser();
+    const { isFetching, error, isAuthenticated } = useUser();
 
     useEffect(() => {
-        if (!isAuthenticated && !isPending) {
+        if (!isAuthenticated && !isFetching) {
             navigate("/login");
         }
-    }, [isAuthenticated, isPending, navigate]);
+    }, [isAuthenticated, isFetching, navigate]);
 
-    if (isPending) {
+    if (isFetching) {
         return <FullPageSpinner />;
     }
 

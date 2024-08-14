@@ -17,7 +17,13 @@ import Dashboard from "./pages/Dashboard";
 import Widgets from "./pages/Widgets";
 import Help from "./pages/Help";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            staleTime: 60 * 1000,
+        },
+    },
+});
 
 function App() {
     return (

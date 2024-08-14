@@ -10,9 +10,9 @@ import { Navigate } from "react-router-dom";
 import FullPageSpinner from "./FullPageSpinner";
 
 export default function IndexRedirect() {
-    const { isPending, error, isAuthenticated } = useUser();
+    const { isFetching, error, isAuthenticated } = useUser();
 
-    if (isPending) {
+    if (isFetching) {
         return <FullPageSpinner />;
     }
 
@@ -23,9 +23,9 @@ export default function IndexRedirect() {
     return (
         <>
             {isAuthenticated ? (
-                <Navigate replace to="/dashboard" />
+                <Navigate replace={true} to="/dashboard" />
             ) : (
-                <Navigate replace to="/landing" />
+                <Navigate replace={true} to="/landing" />
             )}
         </>
     );
