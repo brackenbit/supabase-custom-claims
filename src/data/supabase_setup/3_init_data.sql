@@ -89,7 +89,7 @@ AS $$
 BEGIN
     -- Only apply trigger when INSERT comes from actual users
     -- i.e. don't apply trigger when running SQL directly
-    CASE WHEN current_user = 'auth' THEN
+    CASE WHEN auth.uid() IS NOT NULL THEN
         NEW.tenant_id := (SELECT tenant_id FROM public.user_tenants WHERE user_id = auth.uid());
     ELSE
         -- Do nothing
