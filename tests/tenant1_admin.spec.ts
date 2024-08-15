@@ -4,6 +4,7 @@
 
 import test, { expect } from "@playwright/test";
 import { deleteWidgets, seedWidgets } from "../src/data/supabaseManagement";
+import { WidgetsPage } from "./widgets-page";
 
 test.beforeAll(async () => {
     // Clear database and seed with known data
@@ -55,27 +56,25 @@ test.describe("E2E testing for tenant 1 admin", () => {
 
         await page.getByRole("link", { name: "Widgets" }).click();
 
-        const tableLocator = page.locator("table");
-        await expect(tableLocator, "should have widgets table").toBeVisible();
+        // Use Page Object Model for widgets page
+        const widgetsPage = new WidgetsPage(page);
+        // Await creation of async locators
+        await widgetsPage.initAsyncLocators();
 
-        // Look for "Name" heading and find index
-        const nameHeadingLocator = tableLocator.locator(
-            `thead th:has-text("Name")`
-        );
-        expect(nameHeadingLocator, "should have Name heading").not.toBe(-1);
-        const nameIndex = await nameHeadingLocator.evaluate((th) => {
-            return Array.from(th.parentElement?.children || []).indexOf(th);
-        });
+        await expect(
+            widgetsPage.tableLocator,
+            "should have widgets table"
+        ).toBeVisible();
 
-        // Get/check the contents of the "Name" column
-        const namesLocator = tableLocator.locator(
-            // Remember: CSS indices start at 1
-            `tbody tr td:nth-of-type(${nameIndex + 1})`
-        );
-        const namesCount = await namesLocator.count();
+        expect(
+            widgetsPage.nameHeadingLocator,
+            "should have Name heading"
+        ).not.toBe(-1);
+
+        const namesCount = await widgetsPage.namesLocator.count();
 
         for (let i = 0; i < namesCount; i++) {
-            const name = await namesLocator.nth(i).innerText();
+            const name = await widgetsPage.namesLocator.nth(i).innerText();
             expect(name).toBeDefined();
             // Test data includes the tenant name at the start of widget name
             // (Client side is agnostic of actual widget tenant data.)
@@ -85,7 +84,9 @@ test.describe("E2E testing for tenant 1 admin", () => {
         }
 
         // (Check after checking names - don't obscure the more important failure!)
-        const rowCount = await tableLocator.locator("tbody tr").count();
+        const rowCount = await widgetsPage.tableLocator
+            .locator("tbody tr")
+            .count();
         expect(rowCount, "should find 4 widgets").toEqual(4);
     });
 });
