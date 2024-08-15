@@ -33,7 +33,9 @@ export default function EditWidgetModal({
     return (
         <Modal show={show} onHide={onHide}>
             <Modal.Header closeButton>
-                <Modal.Title>Edit Widget</Modal.Title>
+                <Modal.Title role="heading" aria-level={1}>
+                    Edit Widget
+                </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <WidgetFormReusable
