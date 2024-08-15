@@ -35,7 +35,7 @@ export default function WidgetTable() {
             <Table>
                 <thead>
                     <tr>
-                        <th>Number</th>
+                        <th>ID</th>
                         <th>Name</th>
                         <th>Description</th>
                     </tr>

@@ -89,4 +89,78 @@ test.describe("E2E testing for tenant 1 admin", () => {
             .count();
         expect(rowCount, "should find 4 widgets").toEqual(4);
     });
+
+    test("can edit widgets", async ({ page }) => {
+        await page.getByRole("link", { name: "Widgets" }).click();
+
+        const widgetsPage = new WidgetsPage(page);
+        await widgetsPage.initAsyncLocators();
+
+        // Get ID of first widget
+        const firstWidgetID = await widgetsPage.getCellByRowAndHeading(0, "ID");
+
+        // Get name and description of this widget
+        // (By ID, as the ordering will change after edit.)
+        const initialName = await widgetsPage.getCellByIDAndHeading(
+            firstWidgetID,
+            "Name"
+        );
+
+        const initialDescription = await widgetsPage.getCellByIDAndHeading(
+            firstWidgetID,
+            "Description"
+        );
+
+        // Get edit button corresponding with that row...
+        const editButton = widgetsPage.getButtonByNameAndID(
+            "Edit",
+            firstWidgetID
+        );
+
+        await editButton.click();
+
+        await expect(
+            page.getByRole("heading", { name: "Edit Widget" }),
+            "should open edit modal"
+        ).toBeVisible();
+
+        const newWidgetName = "Widget v2";
+        const newWidgetDescription = "Now with AI and blockchain!";
+
+        await page.getByRole("textbox", { name: "Name" }).fill(newWidgetName);
+        await page
+            .getByRole("textbox", { name: "Description" })
+            .fill(newWidgetDescription);
+
+        await page.getByRole("button", { name: "Edit widget" }).click();
+
+        // Wait for the initial name and description not to be there
+        // (Not just for testing - this adds a necessary await so Tanstack query can refresh)
+        const initialNameLocator = page.locator(`text="${initialName}"`);
+        const initialDescriptionLocator = page.locator(
+            `text="${initialDescription}"`
+        );
+        await expect(
+            initialNameLocator,
+            "initial name should no longer appear"
+        ).toHaveCount(0);
+        await expect(
+            initialDescriptionLocator,
+            "initial description should no longer appear"
+        ).toHaveCount(0);
+
+        // Confirm updated widget
+        const newName = await widgetsPage.getCellByIDAndHeading(
+            firstWidgetID,
+            "Name"
+        );
+        const newDescription = await widgetsPage.getCellByIDAndHeading(
+            firstWidgetID,
+            "Description"
+        );
+        expect(newName, "should have updated name").toEqual(newWidgetName);
+        expect(newDescription, "should have updated description").toEqual(
+            newWidgetDescription
+        );
+    });
 });
