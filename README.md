@@ -50,7 +50,7 @@ Automated testing is set up with Vitest, React Testing Library, and Playwright.
 
 Unit testing has very limited coverage (only MainNavbar is included).
 
-E2E testing is also a work in progress, but a bit more substantial. It confirms that login is working, tenant data is segregated, and admins can edit widgets.
+E2E testing is also a work in progress, but a bit more substantial. It confirms that login is working, tenant data is segregated, and edit permissions are appropriately applied.
 
 ## Building the Demo
 
