@@ -18,7 +18,9 @@ export function useDeleteWidget() {
             });
         },
         onError: (err) => {
-            toast.error(err.message);
+            toast.error(err.message, {
+                ariaProps: { role: "alert", "aria-live": "polite" },
+            });
         },
     });
 

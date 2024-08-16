@@ -39,7 +39,9 @@ export function useLogin() {
         },
         onError: (error) => {
             console.error("useLogin error: ", error.message);
-            toast.error(error.message);
+            toast.error(error.message, {
+                ariaProps: { role: "alert", "aria-live": "polite" },
+            });
         },
     });
 
