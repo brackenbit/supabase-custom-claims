@@ -37,6 +37,24 @@ export class WidgetsPage {
         );
     }
 
+    // Get locators for all cells at the column with the given heading
+    async getLocatorsByHeading(heading: string) {
+        // Find column index by heading
+        const headingLocator = this.tableLocator.locator(
+            `thead th:has-text("${heading}")`
+        );
+        const columnIndex = await headingLocator.evaluate((th) => {
+            return Array.from(th.parentElement?.children || []).indexOf(th);
+        });
+
+        // Get locator for all these cells
+        const cellsLocator = this.tableLocator.locator(
+            `tbody td:nth-of-type(${columnIndex + 1})`
+        );
+
+        return cellsLocator;
+    }
+
     // Get (text) contents of the cell at:
     //   - the nth row (starting at 0)
     //   - the column with the given heading
@@ -99,5 +117,28 @@ export class WidgetsPage {
         );
 
         return buttonLocator;
+    }
+
+    async getAllIDs() {
+        const IDLocators = await this.getLocatorsByHeading("ID");
+        const initialIDs: string[] = [];
+        for (const id of await IDLocators.all()) {
+            initialIDs.push(await id.innerText());
+        }
+
+        return initialIDs;
+    }
+
+    // NB: takes an array of IDs as an argument, and populates the map only with IDs in this array
+    // In practice, this will be called after an array of IDs has been populated, so
+    // it saves time to take it as an argument.
+    async getMapForIDsAndHeading(idArray: string[], heading: string) {
+        const valuesMap = new Map<string, string>();
+        for (const id of idArray) {
+            const value = await this.getCellByIDAndHeading(id, heading);
+            valuesMap.set(id, value);
+        }
+
+        return valuesMap;
     }
 }
