@@ -16,7 +16,9 @@ export function useEditWidget() {
         mutationFn: ({ newWidget, id }: editWidgetParams) =>
             editWidgetApi({ newWidget, id }),
         onSuccess: () => {
-            toast.success("Widget successfully edited");
+            toast.success("Widget successfully edited", {
+                ariaProps: { role: "status", "aria-live": "polite" },
+            });
             queryClient.invalidateQueries({
                 queryKey: ["widgets"],
             });

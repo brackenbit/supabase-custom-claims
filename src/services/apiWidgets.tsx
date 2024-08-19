@@ -78,6 +78,6 @@ export async function deleteWidget(id: number) {
         // Supabase returns 204 success (No content) instead of error if DELETE is blocked by RLS
         // (For security reasons, rows appear empty, and zero out of zero rows are deemed successfully deleted.)
         // Therefore need to check count of deleted rows to throw RLS error.
-        throw new Error("You are not allowed to delete widgets.");
+        throw new Error("You are not allowed to delete widgets");
     }
 }

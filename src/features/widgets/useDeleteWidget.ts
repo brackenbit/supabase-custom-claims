@@ -12,7 +12,9 @@ export function useDeleteWidget() {
     const { mutate: deleteWidget, isPending: isDeleting } = useMutation({
         mutationFn: deleteWidgetApi,
         onSuccess: () => {
-            toast.success("Widget deleted");
+            toast.success("Widget deleted", {
+                ariaProps: { role: "status", "aria-live": "polite" },
+            });
             queryClient.invalidateQueries({
                 queryKey: ["widgets"],
             });

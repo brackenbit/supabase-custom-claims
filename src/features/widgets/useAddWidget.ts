@@ -12,7 +12,9 @@ export function useAddWidget() {
     const { mutate: addWidget, isPending: isAdding } = useMutation({
         mutationFn: addWidgetApi,
         onSuccess: () => {
-            toast.success("New widget added");
+            toast.success("New widget added", {
+                ariaProps: { role: "status", "aria-live": "polite" },
+            });
             queryClient.invalidateQueries({
                 queryKey: ["widgets"],
             });
