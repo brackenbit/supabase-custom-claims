@@ -1,5 +1,9 @@
 /*
     (C) Brackenbit 2024
+
+    Test spec for user role
+    Tests permissions are applied correctly for normal app actions.
+    (Forbidden actions that shouldn't be accessible in the app are tested in forbidden.spec.ts)
 */
 
 import test from "@playwright/test";

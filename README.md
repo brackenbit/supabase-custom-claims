@@ -62,6 +62,8 @@ You should populate .env with:
 
 Testing similarly relies on a .env.test, which should be populated with:
 
+-   VITE_SUPABASE_URL
+-   VITE_SUPABASE_PUBLIC_KEY
 -   VITE_SUPABASE_ACCESS_TOKEN
 -   VITE_SUPABASE_PROJECT_REF
 
