@@ -2,6 +2,10 @@
 
 Demo project built to learn how to add custom claims to Supabase authentication, to support e.g. multi-tenancy and user roles.
 
+[Try out the demo](https://supabase-custom-claims.vercel.app)
+
+(Note the demo is hosted on Vercel and Supabase free tiers, and may have been paused.)
+
 ## Overview
 
 The application is a simple CRUD app, where users manipulate "widgets".
