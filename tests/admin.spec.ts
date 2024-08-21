@@ -28,7 +28,7 @@ import { testCanAddWidgets } from "./testCanAddWidgets";
         tenantStartsWith: "Widgets'R'Us",
     },
 ].forEach(({ name, email, userButtonText, tenantStartsWith }) => {
-    test.describe(() => {
+    test.describe("E2E testing for...", () => {
         test.beforeAll(async () => {});
 
         test.beforeEach(async ({ page }) => {
@@ -53,7 +53,7 @@ import { testCanAddWidgets } from "./testCanAddWidgets";
             await page.waitForURL("/dashboard");
         });
 
-        test.describe(`E2E testing for ${name}`, () => {
+        test.describe(`${name}`, () => {
             test("data is segregated", async ({ page }) => {
                 await testDataIsSegregated(
                     page,

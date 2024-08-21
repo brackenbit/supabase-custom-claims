@@ -9,7 +9,7 @@
 import test, { expect } from "@playwright/test";
 import { createClient } from "@supabase/supabase-js";
 
-test.describe(() => {
+test.describe("E2E testing for...", () => {
     // Global setup
     let supabaseTestClient;
 
@@ -36,7 +36,7 @@ test.describe(() => {
         supabaseTestClient = null;
     });
 
-    test.describe(`E2E testing for unauthenticated user`, () => {
+    test.describe(`unauthenticated user`, () => {
         test("can not SELECT on widgets", async () => {
             const { data, error } = await supabaseTestClient
                 .from("widgets")
@@ -61,7 +61,7 @@ test.describe(() => {
                 .select();
 
             // Supabase returns status 200 and no error on an update that fails due
-            // to permissions.
+            // to permissions (when unauthenticated).
             // All that can be practically done here is to confirm that it's returned blank data:
             expect(data, "should get allowed data").toBeTruthy();
             expect(data.length, "should get empty array").toEqual(0);
@@ -86,7 +86,7 @@ test.describe(() => {
         });
         test("can not DELETE on widgets", async () => {
             // NB: See limitations of this test below.
-            const { data, error } = await supabaseTestClient
+            const { data } = await supabaseTestClient
                 .from("widgets")
                 .delete()
                 .neq("id", -1)

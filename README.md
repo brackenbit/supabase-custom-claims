@@ -50,7 +50,13 @@ Automated testing is set up with Vitest, React Testing Library, and Playwright.
 
 Unit testing has very limited coverage (only MainNavbar is included).
 
-E2E testing tests each role for each tenant, confirming that all permissions are appropriately applied.
+E2E testing is robust, including:
+
+-   confirming permissions are appropriately applied for each role and each tenant,
+-   confirming permissions are appropriately applied for unauthenticated users, and
+-   confirming that forbidden actions cannot be taken, even using the Supabase API directly, e.g.:
+    -   queries against forbidden tables are blocked
+    -   malicious queries against allowed tables are blocked, or automatically corrected into an allowed query
 
 ## Building the Demo
 
